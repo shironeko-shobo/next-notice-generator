@@ -2,8 +2,11 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import vuetify from "./plugins/vuetify";
+import shortkey from "vue-shortkey";
 
 Vue.config.productionTip = false;
+Vue.use(shortkey);
 
 Vue.directive("notice", {
   bind: el => {
@@ -24,6 +27,8 @@ Vue.directive("notice", {
       el.style.cursor = "move";
 
       document.body.addEventListener("mousemove", mouseMove, false);
+      el.addEventListener("mouseup", mouseUp, false);
+      document.body.addEventListener("mouseleave", mouseUp, false);
     };
 
     const mouseMove = e => {
@@ -37,8 +42,6 @@ Vue.directive("notice", {
 
       el.style.top = event.pageY - currentElementY + "px";
       el.style.left = event.pageX - currentElementX + "px";
-      el.addEventListener("mouseup", mouseUp, false);
-      document.body.addEventListener("mouseleave", mouseUp, false);
     };
 
     const mouseUp = () => {
@@ -55,6 +58,8 @@ Vue.directive("notice", {
 new Vue({
   router,
   store,
+  vuetify,
+  shortkey,
   render: h => h(App)
 }).$mount("#app");
 

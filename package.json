@@ -1,5 +1,5 @@
 {
-  "name": "aaa",
+  "name": "next_notice",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,10 +12,14 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
+    "vue-clickaway": "^2.2.2",
     "vue-router": "^3.0.3",
+    "vue-shortkey": "^3.1.7",
+    "vuetify": "^2.0.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@mdi/font": "^3.9.95",
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-plugin-e2e-cypress": "^3.10.0",
     "@vue/cli-plugin-eslint": "^3.10.0",
@@ -33,6 +37,8 @@
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-pug": "^1.0.7",
-    "vue-template-compiler": "^2.6.10"
+    "vue-cli-plugin-vuetify": "^0.6.1",
+    "vue-template-compiler": "^2.6.10",
+    "vuetify-loader": "^1.2.2"
   }
 }
