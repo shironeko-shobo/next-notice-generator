@@ -1,8 +1,8 @@
 export default {
   data() {
     return {
-      resizeIntervalId: "",
-    }
+      resizeIntervalId: ""
+    };
   },
   mounted() {
     this.$nextTick(() => {
@@ -86,4 +86,4 @@ export default {
         Math.ceil(parseInt(item.currentPositionY) / recoverRate) + "px";
     }
   }
-}
+};
