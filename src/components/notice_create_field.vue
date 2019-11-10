@@ -11,10 +11,7 @@
           style="height: 100%;"
         )
           //- タイトルヘッダー
-          .menu-header(class="subtitle-1 mb-4" )
-            v-layout(row align-center justify-center)
-              v-icon(class="mr-2" color="indigo") message
-              span タイトルの設定
+          form-title(class="mb-4" title="タイトルの設定" iconName="message")
           //- タイトル設定フォーム
           .message-lagel
             .text-field(class="px-1")
@@ -27,12 +24,10 @@
           v-divider(class="sepalator")
 
           //- 新規追加ヘッダー
-          .menu-header(class="subtitle-1 mt-6 mb-4")
-            v-layout(row align-center justify-center)
-              v-icon(class="mr-2" color="indigo") library_add
-              span メッセージの追加
+          form-title(class="mt-6 mb-4" title="メッセージの追加" iconName="library_add")
 
           //- 新規追加フォーム
+
           .message-lagel
             v-layout.text-field(class="px-1" align-center justify-center)
               v-text-field(
@@ -53,10 +48,7 @@
             v-divider(class="sepalator")
 
             //- 編集ヘッダー
-            .menu-header(class="subtitle-1 mt-6 mb-4")
-              v-layout(row align-center justify-center)
-                v-icon(class="mr-2" color="indigo") build
-                span メッセージの編集
+            form-title(class="mt-6 mb-4" title="メッセージの編集" iconName="build")
             //- メッセージ編集フォーム
             .message-lagel
               v-chip(class="my-2 indigo" dark label) テキスト
@@ -64,8 +56,7 @@
                 v-text-field(
                   prepend-inner-icon="edit"
                   type="text"
-                  :value="noticeInfo.mainMessages[editngItemIndex].message"
-                  @input="editMessage"
+                  v-model="noticeInfo.mainMessages[editngItemIndex].message"
                 )
 
             //- サイズ編集フォーム
@@ -136,30 +127,16 @@
           )
 
     //- 保存確認ダイアログ
-    v-dialog(v-model="dialogStatus" width="500")
-      v-card
-        v-card-title(class="headline")
-          v-layout(align-end)
-            v-icon(color="red" large class="mr-3") error_outline
-            span 設定を保存してください
-        v-divider
-        v-card-text
-          span.body-1 再生するには設定を保存する必要があります。
-          br
-          span.body-1 保存してもよろしいですか？
-        v-card-actions
-          div(class="flex-grow-1")
-          v-btn(
-            color="white"
-            width="100px"
-            @click="dialogStatus = false"
-          ) 編集に戻る
-          v-btn(
-            color="green accent-4 white--text"
-            width="100px"
-            class="ml-5"
-            @click="modalSave"
-          ) 保存する
+    save-dialog(
+      :displayStatus="dialogStatus"
+      title="設定を保存してください",
+      message1="再生するには設定を保存する必要があります",
+      message2="保存してもよろしいですか？",
+      cancelButtonText="編集に戻る",
+      okButtonText="保存する"
+      @confirm="modalSave",
+      @cancel="closeSaveDialog"
+    )
 
     //- 保存ボタン
     v-tooltip(left)
@@ -206,10 +183,15 @@ import messageLine from "./message_line.vue";
 import resizeFunctions from "../plugins/resize_sheet.js";
 import restoreFunction from "../plugins/restore_data.js";
 
+import FormTitle from "./atoms/form_title.vue";
+import SaveDialog from "./molecules/confirm_dialog.vue";
+
 export default {
   name: "CreateField",
   components: {
-    messageLine
+    messageLine,
+    FormTitle,
+    SaveDialog
   },
   mixins: [resizeFunctions, restoreFunction],
   data() {
@@ -354,8 +336,10 @@ export default {
         this.dialogStatus = true;
         return;
       }
-
       this.$router.push("/view");
+    },
+    closeSaveDialog() {
+      this.dialogStatus = false;
     },
     prepareSave() {
       this.takeInTmp();
