@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-dialog(v-model="displayStatus" width="500")
+  v-dialog(:value="displayStatus" @input="cancel" width="500")
     v-card
       v-card-title(class="headline")
         v-layout(align-end)
@@ -15,13 +15,13 @@
         v-btn(
           color="white"
           width="100px"
-          @click="confirm"
+          @click="cancel"
         ) {{ cancelButtonText }}
         v-btn(
           color="green accent-4 white--text"
           width="100px"
           class="ml-5"
-          @click="cancel"
+          @click="confirm"
         ) {{ okButtonText }}
 </template>
 
